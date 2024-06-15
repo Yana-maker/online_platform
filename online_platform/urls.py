@@ -9,7 +9,6 @@ from online_platform.views import ProductCreateApiView, ProductUpdateApiView, \
 app_name = OnlinePlatformConfig.name
 
 
-
 urlpatterns = [
     # урлы для продукта
     path('product/create/', ProductCreateApiView.as_view(), name='product_create'),
