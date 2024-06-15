@@ -11,7 +11,7 @@ NULLABLE = {'null': True, 'blank': True}
 class User(AbstractUser):
     """Модель пользователя"""
 
-    is_active = models.BooleanField(default=False, verbose_name='активный пользователь')
+    is_active = models.BooleanField(default=True, verbose_name='активный пользователь')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
     class Meta:

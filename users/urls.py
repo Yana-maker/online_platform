@@ -6,10 +6,10 @@ from users.views import UserCreateApiView, UserUpdateApiView, UserRetrieveApiVie
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path('/user/create/', UserCreateApiView.as_view(), name='create'),
-    path('/user/update/<int:pk>/', UserUpdateApiView.as_view(), name='update'),
-    path('/user/retrieve/<int:pk>/', UserRetrieveApiView.as_view(), name='retrieve'),
-    path('/user/destroy/<int:pk>/', UserDestroyApiView.as_view(), name='destroy'),
+    path('user/create/', UserCreateApiView.as_view(), name='create'),
+    path('user/update/<int:pk>/', UserUpdateApiView.as_view(), name='update'),
+    path('user/retrieve/<int:pk>/', UserRetrieveApiView.as_view(), name='retrieve'),
+    path('user/destroy/<int:pk>/', UserDestroyApiView.as_view(), name='destroy'),
 
     # jwt
     path('api/token/', TokenObtainPairView.as_view(), name='token-Obtain'),
