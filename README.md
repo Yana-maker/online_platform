@@ -96,6 +96,8 @@ python manage.py loaddata online_platform.json
 пользователям, кроме UserCreateApiView
 пример:
 ![img.png](img.png)
+9. для запуска теста: python manage.py test
+10. посмотреть покрытие тестами: coverage report  
 
 # **Структура проекта**
 
@@ -275,27 +277,27 @@ python manage.py loaddata online_platform.json
 ## Класс ProductCreateApiView
 - Описание: создания нового продукта
 - serializerclass: ProductSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ProductUpdateApiView
 - Описание: для обновления существующего продукта
 - serializerclass: ProductSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ProductRetrieveApiView
 - Описание: для получения сведений об одном продукте
 - serializerclass: ProductSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ProductListApiView
 - Описание: для получения списка всех продуктов
 - serializerclass: ProductSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ProductDestroyApiView
 - Описание: для удаления продукта
 - serializerclass: ProductSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 
 
@@ -304,81 +306,87 @@ python manage.py loaddata online_platform.json
 ## Класс SupplierCreateApiView
 - Описание: создания нового поставщика
 - serializerclass: SupplierSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс SupplierUpdateApiView
 - Описание: для обновления существующего поставщика
 - serializerclass: SupplierSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс SupplierRetrieveApiView
 - Описание: для получения сведений о поставщике
 - serializerclass: SupplierSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс SupplierListApiView
 - Описание: для получения списка всех поставщиков
 - serializerclass: SupplierSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
+- filterset_fields: доступна фильтрация по стране поставщика, пример get запроса:
+http://127.0.0.1:8000/supplier/list/?country=США
+![img_3.png](img_3.png)
 
 ## Класс SupplierDestroyApiView
 - Описание: для удаления поставщика
 - serializerclass: SupplierSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Сетевые API
 
 ## Класс NetworkCreateApiView
 - Описание: создания новой сети
 - serializerclass: NetworkSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс NetworkUpdateApiView
 - Описание: для обновления существующей сети
 - serializerclass: NetworkSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс NetworkRetrieveApiView
 - Описание: для получения сведений о сети
 - serializerclass: NetworkSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс NetworkListApiView
 - Описание: для получения списка всех сетей
 - serializerclass: NetworkSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
+- filterset_fields: доступна фильтрация по стране, пример get запроса:
+http://127.0.0.1:8000/network/list/?contact__country=Россия
+![img_2.png](img_2.png)
 
 ## Класс NetworkDestroyApiView
 - Описание: для удаления сети
 - serializerclass: NetworkSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## API контактов
 
 ## Класс ContactCreateApiView
 - Описание: создания нового контакта
 - serializerclass: ContactSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ContactUpdateApiView
 - Описание: для обновления существующего контакта
 - serializerclass: ContactSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ContactRetrieveApiView
 - Описание: для получения сведений о контакте
 - serializerclass: ContactSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ContactListApiView
 - Описание: для получения списка всех контактов
 - serializerclass: ContactSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 ## Класс ContactDestroyApiView
 - Описание: для удаления контакта
 - serializerclass: ContactSerializer
-- требуется разрешение IsActiveUser.
+- permission_classes: требуется разрешение IsActiveUser.
 
 # *users/migrations* 
 
@@ -450,6 +458,12 @@ REST framework. URL-шаблоны используются для привяз�
 - user/destroy/<int:pk>/ - Удаление пользователя с указанным идентификатором.
 - api/token/ - Получение JWT-токена для аутентификации пользователя.
 - api/token/refresh/ - Обновление JWT-токена.
+пример post запросе в постман http://127.0.0.1:8000/api/token/
+учетные данные:
+{
+    "username": "admin",
+    "password": 1234
+}
 
 ### Подробности кода
 - UserCreateApiView: Обработчик для создания нового пользователя.
@@ -518,23 +532,8 @@ exclude = migrations, poetry.black, poetry.toml
 Содержит папки и файлы, которые требуется исключить из отслеживания Git
 
 
-# *Примеры запросов в Postman:*
+ 
+ 
+  
 
-1. учетные данные суперпользвателя для postman post запросе http://127.0.0.1:8000/api/token/: 
-{
-    "username": "admin",
-    "password": 1234
-}
-
-2. пример запроса http://127.0.0.1:8000/network/list/ - вывод списка всех сетей
-![img_1.png](img_1.png)
-
-3. пример post запроса http://127.0.0.1:8000/network/create/ - создание сети
-
-4. Пример get запроса с фильтрацией 
-http://127.0.0.1:8000/supplier/list/?country=США
-![img_3.png](img_3.png)
-
-http://127.0.0.1:8000/network/list/?contact__country=Россия
-![img_2.png](img_2.png)
-
+ 
