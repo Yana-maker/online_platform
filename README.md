@@ -79,9 +79,8 @@ CRUD для модели поставщика (запретить обновле
 
 ### **Настройка**
 
-1. установите необходимые переменные из .env-sample
-2. Установите необходимые зависимости pip -r requirements.txt (Может не все установится, 
-поэтому придется какие-то пакеты отдельно установить)
+1. пропишите необходимые переменные из .env-sample
+2. Установите виртуальное окружение и необходимые зависимости pip -r requirements.txt
 3. создайте и примените миграции:
   - python manage.py makemigrations 
   - python manage.py migrate
@@ -89,10 +88,10 @@ CRUD для модели поставщика (запретить обновле
 4. создайте суперпользвателя командой: python manage.py csu
 5. Загрузите данные online_platform в свою БД командой:
 python manage.py loaddata online_platform.json
-(возможно потребуется поменять кодировку файл json UTF-8)
+(возможно потребуется поменять кодировку файла json на UTF-8)
 
 6. Запустите приложение командой python manage.py runserver
-7. заходим в админку http://127.0.0.1:8000/admin
+7. заходим в админку http://127.0.0.1:8000/admin, учетные данные username: admin, password: 1234
 8. в постман можно проверить контроллеры https://www.postman.com/
 9. необходимо обязательно получить токен и внести его в запросе Postman в 
 "headers", ключ: "Authorization" т.к. контроллеры доступны авторизированным активным
@@ -536,7 +535,9 @@ exclude = migrations, poetry.black, poetry.toml
 
 
 # *ПРИМЕРЫ ЗАПРОСОВ* 
-post запрос http://127.0.0.1:8000/product/create/
+
+1. post запрос http://127.0.0.1:8000/product/create/
+
 {
     "title": "test update",
     "model": "test update"
@@ -544,8 +545,24 @@ post запрос http://127.0.0.1:8000/product/create/
 ![img_4.png](img_4.png) 
  
   
-get запрос http://127.0.0.1:8000/product/retrieve/4/
+2. get запрос http://127.0.0.1:8000/product/retrieve/4/
+
 ![img_5.png](img_5.png) 
 
-put запрос http://127.0.0.1:8000/product/update/4/
-delete запрос http://127.0.0.1:8000/product/destroy/4/
+3. put запрос http://127.0.0.1:8000/product/update/4/
+
+4. delete запрос http://127.0.0.1:8000/product/destroy/4/
+
+5. get запрос http://127.0.0.1:8000/product/list/
+
+6. post запрос http://127.0.0.1:8000/supplier/create/
+
+{
+    "title": "test",
+    "email": "testupdate@gmail.com",
+    "country": "test update",
+    "city": "test update",
+    "street": "test",
+    "house_number": "test update",
+    "products": [1]
+}
