@@ -21,7 +21,7 @@ class SetUpTests(APITestCase):
         )
 
         self.supplier = Supplier.objects.create(
-
+            id=5,
             title='test-supplier',
             level='розничная сеть',
             email='test-supplier@gmail.com',
@@ -33,11 +33,19 @@ class SetUpTests(APITestCase):
         self.supplier.products.add(self.product)
 
         self.contact = Contact.objects.create(
+            id=5,
             email='test-contact@gmail.com',
             country='test-contact',
             city='test-contact',
             street='test street',
             house_number=1231,
+        )
+
+        self.network = Network.objects.create(
+            name='test-network',
+            supplier=self.supplier,
+            supplier_debt=150.12,
+            contact=self.contact
         )
 
     def test_product_create(self):
@@ -381,4 +389,117 @@ class SetUpTests(APITestCase):
 
         self.assertFalse(
             Contact.objects.filter(id=self.contact.id).exists()
+        )
+
+    def test_network_create(self):
+        """Тест на создание network"""
+
+        self.client.force_authenticate(user=self.user)
+
+        data = {
+            'name': 'test-name',
+            'supplier': [5],
+            'supplier_debt': 125.13,
+            'contact': [5],
+
+        }
+
+        response = self.client.post(
+            '/network/create/',
+            data=data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+        print(f"ответ по тесту test_network_create - {response.data}")
+
+        self.assertEquals(
+            response.data['name'],
+            data['name']
+        )
+
+    def test_network_update(self):
+        """Тест на редактирование network"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = reverse('online_platform:network_update', args=[self.network.id])
+        data = data = {
+            'name': 'test-name update',
+            'supplier': [5],
+            'supplier_debt': 125.13,
+            'contact': [5],
+
+        }
+
+        response = self.client.put(
+            url,
+            data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+        self.assertTrue(
+            Network.objects.filter(id=self.network.id).exists()
+        )
+
+        self.assertEquals(
+            response.data['name'],
+            data['name']
+        )
+
+        print(f"ответ тесту test_contact_update - {response.data['name']}")
+
+    def test_network_retrieve(self):
+        """Тест на просмотр определенного network"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = reverse('online_platform:network_retrieve', args=[self.network.id])
+        data = {
+            'id': self.network.id,
+        }
+        response = self.client.get(
+            url,
+            data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+        self.assertTrue(
+            Network.objects.filter(id=self.network.id).exists()
+        )
+
+        self.assertEquals(
+            response.data['id'],
+            data['id']
+        )
+
+        print(f"ответ по тесту test_network_retrieve - {response.data['id']}")
+
+    def test_network_destroy(self):
+        """Тест на удаление network"""
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('online_platform:network_destroy', args=[self.network.id])
+
+        response = self.client.delete(
+            url
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT
+        )
+
+        self.assertFalse(
+            Network.objects.filter(id=self.network.id).exists()
         )
