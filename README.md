@@ -535,8 +535,17 @@ exclude = migrations, poetry.black, poetry.toml
 Содержит папки и файлы, которые требуется исключить из отслеживания Git
 
 
- 
+# *ПРИМЕРЫ ЗАПРОСОВ* 
+post запрос http://127.0.0.1:8000/product/create/
+{
+    "title": "test update",
+    "model": "test update"
+}
+![img_4.png](img_4.png) 
  
   
+get запрос http://127.0.0.1:8000/product/retrieve/4/
+![img_5.png](img_5.png) 
 
- 
+put запрос http://127.0.0.1:8000/product/update/4/
+delete запрос http://127.0.0.1:8000/product/destroy/4/
