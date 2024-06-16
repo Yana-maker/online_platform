@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 from online_platform.models import Product, Supplier, Network, Contact
 from online_platform.serializers import ProductSerializer, SupplierSerializer, NetworkSerializer, ContactSerializer
@@ -58,7 +59,7 @@ class SupplierRetrieveApiView(generics.RetrieveAPIView):
     """Просмотр поставщика"""
     serializer_class = SupplierSerializer
     queryset = Supplier.objects.all()
-    permission_classes = [IsActiveUser]
+    permission_classes = [IsActiveUser | AllowAny]
 
 
 class SupplierListApiView(generics.ListAPIView):
