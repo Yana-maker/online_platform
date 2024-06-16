@@ -1,4 +1,3 @@
-from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -154,7 +153,6 @@ class SetUpTests(APITestCase):
         self.assertFalse(
             Product.objects.filter(id=self.product.id).exists()
         )
-
 
     def test_supplier_create(self):
         """Тест на создание supplier"""
