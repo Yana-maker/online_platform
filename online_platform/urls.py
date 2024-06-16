@@ -4,7 +4,8 @@ from online_platform.views import ProductCreateApiView, ProductUpdateApiView, \
     ProductRetrieveApiView, ProductDestroyApiView, SupplierCreateApiView, \
     SupplierUpdateApiView, SupplierRetrieveApiView, SupplierDestroyApiView, SupplierListApiView, NetworkUpdateApiView, \
     NetworkCreateApiView, NetworkRetrieveApiView, NetworkDestroyApiView, NetworkListApiView, \
-    ContactUpdateApiView, ContactRetrieveApiView, ContactDestroyApiView, ContactListApiView, ContactCreateApiView
+    ContactUpdateApiView, ContactRetrieveApiView, ContactDestroyApiView, ContactListApiView, ContactCreateApiView, \
+    ProductListApiView
 
 app_name = OnlinePlatformConfig.name
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('product/update/<int:pk>/', ProductUpdateApiView.as_view(), name='product_update'),
     path('product/retrieve/<int:pk>/', ProductRetrieveApiView.as_view(), name='product_retrieve'),
     path('product/destroy/<int:pk>/', ProductDestroyApiView.as_view(), name='product_destroy'),
+    path('product/list/', ProductListApiView.as_view(), name='product_list'),
     # урлы для поставщика
     path('supplier/create/', SupplierCreateApiView.as_view(), name='supplier_create'),
     path('supplier/update/<int:pk>/', SupplierUpdateApiView.as_view(), name='supplier_update'),
