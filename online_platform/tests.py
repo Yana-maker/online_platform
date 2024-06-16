@@ -20,6 +20,26 @@ class SetUpTests(APITestCase):
             model='test-model'
         )
 
+        self.supplier = Supplier.objects.create(
+
+            title='test-supplier',
+            level='розничная сеть',
+            email='test-supplier@gmail.com',
+            country='test-country',
+            city='test-city',
+            street=3,
+            house_number=3,
+        )
+        self.supplier.products.add(self.product)
+
+        self.contact = Contact.objects.create(
+            email='test-contact@gmail.com',
+            country='test-contact',
+            city='test-contact',
+            street='test street',
+            house_number=1231,
+        )
+
     def test_product_create(self):
         """Тест на создание product"""
 
@@ -39,7 +59,7 @@ class SetUpTests(APITestCase):
             response.status_code,
             status.HTTP_201_CREATED
         )
-        print(f"ответ по первому тесту - {response.data['title']}")
+        print(f"ответ по тесту test_product_create - {response.data['title']}")
 
         self.assertEquals(
             response.data['title'],
@@ -76,7 +96,7 @@ class SetUpTests(APITestCase):
             data['title']
         )
 
-        print(f"ответ по второму тесту - {response.data['title']}")
+        print(f"ответ по тесту test_product_update- {response.data['title']}")
 
     def test_product_retrieve(self):
         """Тест на просмотр определенного product"""
@@ -106,7 +126,7 @@ class SetUpTests(APITestCase):
             data['id']
         )
 
-        print(f"ответ по третьему тесту - {response.data['id']}")
+        print(f"ответ по тесту test_product_retrieve- {response.data['id']}")
 
     def test_product_destroy(self):
         """Тест на удаление product"""
@@ -127,3 +147,238 @@ class SetUpTests(APITestCase):
             Product.objects.filter(id=self.product.id).exists()
         )
 
+
+    def test_supplier_create(self):
+        """Тест на создание supplier"""
+
+        self.client.force_authenticate(user=self.user)
+
+        data = {
+            'id': 3,
+            'title': 'test-supplier',
+            'level': 'розничная сеть',
+            'email': 'test-supplier1@gmail.com',
+            'country': 'test-country',
+            'city': 'test-city',
+            'street': 3,
+            'house_number': 3,
+            'products': [3]
+
+        }
+
+        response = self.client.post(
+            '/supplier/create/',
+            data=data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+        print(f"ответ по тесту test_supplier_create- {response.data}")
+
+        self.assertEquals(
+            response.data['title'],
+            data['title']
+        )
+
+    def test_supplier_update(self):
+        """Тест на редактирование supplier"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = reverse('online_platform:supplier_update', args=[self.supplier.id])
+        data = {
+            'id': 3,
+            'title': 'test-supplier update',
+            'level': 'розничная сеть',
+            'email': 'test-supplier@gmail.com',
+            'country': 'test-country update',
+            'city': 'test-city',
+            'street': 3,
+            'house_number': 3,
+            'products': [3]
+        }
+        response = self.client.put(
+            url,
+            data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+        self.assertTrue(
+            Supplier.objects.filter(id=self.supplier.id).exists()
+        )
+
+        self.assertEquals(
+            response.data['title'],
+            data['title']
+        )
+
+        print(f"ответ по тесту test_supplier_update- {response.data['title']}")
+
+    def test_supplier_retrieve(self):
+        """Тест на просмотр определенного supplier"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = reverse('online_platform:supplier_retrieve', args=[self.supplier.id])
+        data = {
+            'id': self.supplier.id,
+        }
+        response = self.client.get(
+            url,
+            data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+        self.assertTrue(
+            Supplier.objects.filter(id=self.supplier.id).exists()
+        )
+
+        self.assertEquals(
+            response.data['id'],
+            data['id']
+        )
+
+        print(f"ответ по тесту test_supplier_retrieve - {response.data['id']}")
+
+    def test_supplier_destroy(self):
+        """Тест на удаление supplier"""
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('online_platform:supplier_destroy', args=[self.supplier.id])
+
+        response = self.client.delete(
+            url
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT
+        )
+
+        self.assertFalse(
+            Supplier.objects.filter(id=self.supplier.id).exists()
+        )
+
+    def test_contact_create(self):
+        """Тест на создание contact"""
+
+        self.client.force_authenticate(user=self.user)
+
+        data = {
+            'email': 'test-contact1@gmail.com',
+            'country': 'test-country',
+            'city': 'test-city',
+            'street': 3,
+            'house_number': 3,
+        }
+
+        response = self.client.post(
+            '/contact/create/',
+            data=data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+        print(f"ответ по тесту test_contact_create - {response.data}")
+
+        self.assertEquals(
+            response.data['email'],
+            data['email']
+        )
+
+    def test_contact_update(self):
+        """Тест на редактирование contact"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = reverse('online_platform:contact_update', args=[self.contact.id])
+        data = {
+
+            'email': 'test-contact_update@gmail.com',
+            'country': 'test-country update',
+            'city': 'test-city',
+            'street': 3,
+            'house_number': 3,
+        }
+
+        response = self.client.put(
+            url,
+            data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+        self.assertTrue(
+            Contact.objects.filter(id=self.contact.id).exists()
+        )
+
+        self.assertEquals(
+            response.data['email'],
+            data['email']
+        )
+
+        print(f"ответ тесту test_contact_update - {response.data['email']}")
+
+    def test_contact_retrieve(self):
+        """Тест на просмотр определенного contact"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = reverse('online_platform:contact_retrieve', args=[self.contact.id])
+        data = {
+            'id': self.contact.id,
+        }
+        response = self.client.get(
+            url,
+            data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+        self.assertTrue(
+            Contact.objects.filter(id=self.contact.id).exists()
+        )
+
+        self.assertEquals(
+            response.data['id'],
+            data['id']
+        )
+
+        print(f"ответ по тесту test_contact_retrieve- {response.data['id']}")
+
+    def test_contact_destroy(self):
+        """Тест на удаление contact"""
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('online_platform:contact_destroy', args=[self.contact.id])
+
+        response = self.client.delete(
+            url
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT
+        )
+
+        self.assertFalse(
+            Contact.objects.filter(id=self.contact.id).exists()
+        )
