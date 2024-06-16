@@ -95,21 +95,22 @@ CRUD для модели поставщика (запретить обновле
 
 # **Структура проекта**
 
-# **config**
+# *config/urls.py*
 
-*config/urls.py* - Содержит шаблоны URL-адресов для всего проекта
+Содержит шаблоны URL-адресов для всего проекта
 - `/admin/`: Доступ к интерфейсу администратора Django.
 - `/`: Корневой URL, включает в себя следующее:
   - `users/`: URL-адреса для приложения, связанного с пользователем
   - `online_platform/`: URL-адреса для основного приложения
 
-# *config/settings.py* - Содержит настройки проекта Django, Настройте переменные среды: 
+# *config/settings.py* 
+
+Содержит настройки проекта Django, Настройте переменные среды: 
 Создайте файл ".env" на основе предоставленного файла " .env-sample" и 
 введите необходимые значения
 
-# **Online_platform**
 
-*Online_platform/migrations*
+# *Online_platform/migrations*
 
 Содержит миграции
 
@@ -154,12 +155,12 @@ CRUD для модели поставщика (запретить обновле
 ссылки в методе `view_link`.
 
 
-# **Online_platform/apps.py**
+# *Online_platform/apps.py*
 
 Это приложение Django под названием online_platform, которое содержит
 основные параметры конфигурации для проекта онлайн-платформы
 
-# **Online_platform/models.py**
+# *Online_platform/models.py*
 
 Содержит модели Django для управления онлайн-платформой. 
 
@@ -197,7 +198,7 @@ CRUD для модели поставщика (запретить обновле
 - **get_absolute_url**: Возвращает URL-адрес сетевого экземпляра.
 
 
-# **Online_platform/serializers.py**
+# *Online_platform/serializers.py*
 
 ### ProductSerializer
 
@@ -222,96 +223,280 @@ CRUD для модели поставщика (запретить обновле
 - Поля: включены все поля контактной модели.
 
 
-# **Online_platform/tests.py**
+# *Online_platform/tests.py*
 
 Содержит тесты
 
-# **Online_platform/urls.py**
+# *Online_platform/urls.py*
 
-### urls продукта
-- Создайте продукт: /product/create/
-- Обновить продукт: /product/update/<int:pk>/
-- Извлекаем продукт: /product/retrieve/<int:pk>/
-- Удаляем продукт: /product/destroy/<int:pk>/
+## URL-адреса продуктов
+- /product/create/: Создать новый продукт (ProductCreateApiView)
+- /product/update/<int:pk>/: Обновить продукт по его идентификатору (ProductUpdateApiView)
+- /product/retrieve/<int:pk>/: Извлекает продукт по его идентификатору (ProductRetrieveApiView)
+- /product/destroy/<int:pk>/: Уничтожить или удалить продукт по его идентификатору (ProductDestroyApiView)
 
-### urls поставщика
-- Создаем поставщика: /supplier/create/
-- Обновляем поставщика: /supplier/update/<int:pk>/
-- Получить поставщика: /supplier/retrieve/<int:pk>/
-- Удалить поставщика: /supplier/destroy/<int:pk>/
-- Список поставщиков: /supplier/list/
+## URL-адреса поставщиков
+- /supplier/create/: Создать нового поставщика (SupplierCreateApiView)
+- /supplier/update/<int:pk>/: Обновить поставщика по его идентификатору (SupplierUpdateApiView)
+- /поставщик/извлечение/<int:pk>/: Извлечение поставщика по его идентификатору (SupplierRetrieveApiView)
+- /поставщик/уничтожение/<int:pk>/: Уничтожение или удаление поставщика по его идентификатору (SupplierDestroyApiView)
+- /список поставщиков/: Список всех поставщиков (SupplierListApiView)
 
-### urls сети
-- Создать сеть: /network/create/
-- Обновить сеть: /network/update/<int:pk>/
-- Восстановить сеть: /network/retrieve/<int:pk>/
-- Удалить сеть: /network/destroy/<int:pk>/
-- Список сети: /network/list/
+## URL-адреса сети
+- /сеть/создать/: Создать новую сеть (NetworkCreateApiView)
+- /сеть/обновить/<int:pk>/: Обновить сеть по ее идентификатору (NetworkUpdateApiView)
+- /network/retrieve/<int:pk>/: Извлекает сеть по ее идентификатору (NetworkRetrieveApiView)
+- /сеть/уничтожить/<int:pk>/: Уничтожить или удалить сеть по ее идентификатору (NetworkDestroyApiView)
+- /сеть/список/: Список всех сетей (NetworkListApiView)
 
-### urls контактов
-- Создать контакт: /contact/create/
-- Обновить контакт: /contact/update/<int:pk>/
-- Восстановить контакт: /contact/retrieve/<int:pk>/
-- Удалить контакт: /contact/destroy/<int:pk>/
-- Список контактов: /contact/list/
+## Адреса контактов
+- /контакт/создать/: Создать новый контакт (ContactCreateApiView)
+- /contact/обновить/<int:pk>/: Обновить контакт по его идентификатору (ContactUpdateApiView)
+- /contact/получить/<int:pk>/: Получить контакт по его идентификатору (ContactRetrieveApiView)
+- /contact/destroy/<int:pk>/: Уничтожить или удалить контакт по его идентификатору (ContactDestroyApiView)
+- /contact/list/: Список всех контактов (ContactListApiView)
 
 
-# **Online_platform/views.py**
+# *Online_platform/views.py*
 
-Контроллеры доступны только активным пользователям
+## Описание
+Этот код представляет собой набор классов для работы с API пользователей. 
+Он включает в себя возможность создания, редактирования, просмотра и удаления 
+различных моделей, таких как Продукт, поставщик, сеть и контакт.
 
-### продукт
-- Создайте продукт: /product/create/
-- Обновить продукт: /product/update/<int:pk>/
-- Извлекаем продукт: /product/retrieve/<int:pk>/
-- Удаляем продукт: /product/destroy/<int:pk>/
 
-### поставщик
-- Создаем поставщика: /supplier/create/
-- Обновляем поставщика: /supplier/update/<int:pk>/
-- Получить поставщика: /supplier/retrieve/<int:pk>/
-- Удалить поставщика: /supplier/destroy/<int:pk>/
-- Список поставщиков: /supplier/list/
 
-### сеть
-- Создать сеть: /network/create/
-- Обновить сеть: /network/update/<int:pk>/
-- Восстановить сеть: /network/retrieve/<int:pk>/
-- Удалить сеть: /network/destroy/<int:pk>/
-- Список сети: /network/list/
+## API продукта
 
-### контакты
-- Создать контакт: /contact/create/
-- Обновить контакт: /contact/update/<int:pk>/
-- Восстановить контакт: /contact/retrieve/<int:pk>/
-- Удалить контакт: /contact/destroy/<int:pk>/
-- Список контактов: /contact/list/
- 
-# **users/migrations** 
+## Класс ProductCreateApiView
+- Описание: создания нового продукта
+- serializerclass: ProductSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ProductUpdateApiView
+- Описание: для обновления существующего продукта
+- serializerclass: ProductSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ProductRetrieveApiView
+- Описание: для получения сведений об одном продукте
+- serializerclass: ProductSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ProductListApiView
+- Описание: для получения списка всех продуктов
+- serializerclass: ProductSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ProductDestroyApiView
+- Описание: для удаления продукта
+- serializerclass: ProductSerializer
+- требуется разрешение IsActiveUser.
+
+
+
+## API поставщика
+
+## Класс SupplierCreateApiView
+- Описание: создания нового поставщика
+- serializerclass: SupplierSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс SupplierUpdateApiView
+- Описание: для обновления существующего поставщика
+- serializerclass: SupplierSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс SupplierRetrieveApiView
+- Описание: для получения сведений о поставщике
+- serializerclass: SupplierSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс SupplierListApiView
+- Описание: для получения списка всех поставщиков
+- serializerclass: SupplierSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс SupplierDestroyApiView
+- Описание: для удаления поставщика
+- serializerclass: SupplierSerializer
+- требуется разрешение IsActiveUser.
+
+## Сетевые API
+
+## Класс NetworkCreateApiView
+- Описание: создания новой сети
+- serializerclass: NetworkSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс NetworkUpdateApiView
+- Описание: для обновления существующей сети
+- serializerclass: NetworkSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс NetworkRetrieveApiView
+- Описание: для получения сведений о сети
+- serializerclass: NetworkSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс NetworkListApiView
+- Описание: для получения списка всех сетей
+- serializerclass: NetworkSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс NetworkDestroyApiView
+- Описание: для удаления сети
+- serializerclass: NetworkSerializer
+- требуется разрешение IsActiveUser.
+
+## API контактов
+
+## Класс ContactCreateApiView
+- Описание: создания нового контакта
+- serializerclass: ContactSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ContactUpdateApiView
+- Описание: для обновления существующего контакта
+- serializerclass: ContactSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ContactRetrieveApiView
+- Описание: для получения сведений о контакте
+- serializerclass: ContactSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ContactListApiView
+- Описание: для получения списка всех контактов
+- serializerclass: ContactSerializer
+- требуется разрешение IsActiveUser.
+
+## Класс ContactDestroyApiView
+- Описание: для удаления контакта
+- serializerclass: ContactSerializer
+- требуется разрешение IsActiveUser.
+
+# *users/migrations* 
 
 Содержит миграции
 
-# **users/admin.py**
+# *users/admin.py*
 
-# **users/apps.py**
+### Администратор пользовательской модели
+- Декоратор @admin.register(пользователь) регистрирует пользовательскую модель в 
+панели администратора.
+- Класс UserAdmin расширяет возможности admin.ModelAdmin и предоставляет 
+пользовательские настройки для пользовательской модели в панели администратора.
+- Атрибут list_display указывает поля, которые будут отображаться в виде списка 
+пользователей в панели администратора. В данном случае отображаются поля 
+"имя пользователя" и "адрес электронной почты".
 
-# **users/models.py**
+# *users/apps.py*
 
-# **users/serializers.py**
+# *users/models.py*
 
-# **users/tests.py**
+Этот код представляет собой объявление модели User, который наследуется от 
+AbstractUser в Django. В данном случае, модель пользователя содержит два поля: 
+is_active и owner.
 
-# **users/urls.py**
+### Подробности кода
+- **is_active:** Это поле типа boolean, которое по умолчанию равно True и отвечает 
+за активность пользователя.
+- **owner:** Это поле ForeignKey, которое связывает пользователя с другим 
+пользователем (settings.AUTH_USER_MODEL). 
+Здесь использован **NULLABLE = {'null': True, 'blank': True}** для позволения 
+сохранения пустых значений и значений null.
 
-# **users/views.py**
+### Метаданные
+- **verbose_name:** 'пользователь'
+- **verbose_name_plural:** 'пользователи'
 
-# **.env-sample**
+### Другая информация
+Пожалуйста, убедитесь, что импортированы необходимые модули и значения 
+settings.AUTH_USER_MODEL определены корректно. 
+
+# *users/serializers.py*
+
+### Краткое описание
+- UserSerializer: Это сериализатор для модели User, который наследуется от 
+serializers.ModelSerializer.
+- Meta: Внутренний класс Meta содержит метаданные для сериализатора
+
+### Подробности кода
+- model: Указывает модель, которая будет сериализоваться.
+- exclude: Исключает указанные поля из сериализации. В данном случае, исключается 
+поле 'owner'.
+
+
+# *users/tests.py*
+
+Cодержит тесты для модели user
+
+# *users/urls.py*
+
+Данный код представляет собой определение маршрутов (URL-шаблонов) в Django 
+REST framework. URL-шаблоны используются для привязки определенных URL к 
+определенным видам (views) в Django приложениях.
+
+### Краткое описание
+В приведенном коде определены следующие URL-шаблоны:
+- user/create/ - Создание нового пользователя.
+- user/update/<int:pk>/ - Обновление информации о пользователе с указанным идентификатором.
+- user/retrieve/<int:pk>/ - Получение информации о пользователе по его идентификатору.
+- user/destroy/<int:pk>/ - Удаление пользователя с указанным идентификатором.
+- api/token/ - Получение JWT-токена для аутентификации пользователя.
+- api/token/refresh/ - Обновление JWT-токена.
+
+### Подробности кода
+- UserCreateApiView: Обработчик для создания нового пользователя.
+- UserUpdateApiView: Обработчик для обновления информации о пользователе.
+- UserRetrieveApiView: Обработчик для получения информации о пользователе.
+- UserDestroyApiView: Обработчик для удаления пользователя.
+- TokenObtainPairView: Обработчик для получения пары токенов доступа и обновления.
+- TokenRefreshView: Обработчик для обновления токена доступа.
+
+ 
+
+# *users/views.py*
+
+## Описание
+Этот код представляет собой набор классов для работы с API пользователей. 
+Он включает в себя возможность создания, редактирования, просмотра и удаления 
+пользователей.
+
+## Класс UserCreateApiView
+- Описание: Создание пользователя
+- serializerclass: UserSerializer
+- Метод performcreate: Создает нового пользователя, устанавливает 'owner' и 
+сохраняет пользователя.
+
+## Класс UserUpdateApiView
+- Описание: Редактирование пользователя
+- serializerclass: UserSerializer
+- queryset: Все пользователи
+- permissionclasses: IsActiveUser
+
+## Класс UserRetrieveApiView
+- Описание: Просмотр пользователей
+- serializerclass: UserSerializer
+- queryset: Все пользователи
+- permissionclasses: IsActiveUser
+
+## Класс UserDestroyApiView
+- Описание: Удаление пользователя
+- serializerclass: UserSerializer
+- queryset: Все пользователи
+- permissionclasses: IsActiveUser
+
+ 
+
+# *.env-sample*
 
 Этот файл является образцом файла ".env", который вы можете 
 использовать для настройки вашего проекта Django. Очень важно создать файл ".env" 
 на основе этого образца и заполнить необходимую информацию перед запуском проекта.
 
-# **./flake8**
+# *./flake8*
 
 ### Конфигурация Flake8
 
@@ -325,7 +510,7 @@ exclude = migrations, poetry.black, poetry.toml
 Параметр exclude в Flake8 позволяет указать каталоги или файлы, которые должны быть исключены из процесса компоновки.
 В данном случае это каталог migrations, poetry.файл блокировки и файл poetry.toml исключены из списка.
 
-# **.gitignore** 
+# *.gitignore* 
 
 Содержит папки и файлы, которые требуется исключить из отслеживания Git
 
