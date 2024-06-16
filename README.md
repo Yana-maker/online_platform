@@ -533,7 +533,8 @@ exclude = migrations, poetry.black, poetry.toml
 
 4. Пример get запроса с фильтрацией 
 http://127.0.0.1:8000/supplier/list/?country=США
-http://127.0.0.1:8000/network/list/?contact__country=Россия
+![img_3.png](img_3.png)
 
+http://127.0.0.1:8000/network/list/?contact__country=Россия
 ![img_2.png](img_2.png)
 
