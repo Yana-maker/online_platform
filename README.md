@@ -83,8 +83,8 @@ CRUD для модели поставщика (запретить обновле
 2. Установите необходимые зависимости pip -r requirements.txt
 3. создайте суперпользвателя командой python manage.py scu
 4. создайте и примените миграции:
-  3.1. python manage.py makemigrations 
-  3.1. python manage.py migrate
+  - python manage.py makemigrations 
+  - python manage.py migrate
 
 5. Загрузите данные в свою БД командой:
 python manage.py loaddata online_platform.json
@@ -92,8 +92,8 @@ python manage.py loaddata online_platform.json
 6. Запустите приложение командой python manage.py runserver
 7. в постман можно проверить контроллеры https://www.postman.com/
 8. необходимо обязательно получить токен и внести его в запросе Postman в 
-"headers", ключ: "Authorization" т.к. контроллеры доступны авторизированным 
-пользователям с is_active = True
+"headers", ключ: "Authorization" т.к. контроллеры доступны авторизированным активным
+пользователям, кроме UserCreateApiView
 пример:
 ![img.png](img.png)
 
