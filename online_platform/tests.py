@@ -451,7 +451,7 @@ class SetUpTests(APITestCase):
             data['name']
         )
 
-        print(f"ответ тесту test_contact_update - {response.data['name']}")
+        print(f"ответ тесту test_network_update - {response.data['name']}")
 
     def test_network_retrieve(self):
         """Тест на просмотр определенного network"""
