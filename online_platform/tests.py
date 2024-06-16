@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from online_platform.models import Product, Supplier, Network, Contact
 from users.models import User
-from online_platform.serializers import ProductSerializer, SupplierSerializer, NetworkSerializer, ContactSerializer
 
 
 class ProductTests(APITestCase):
@@ -40,9 +39,9 @@ class ProductTests(APITestCase):
             response.status_code,
             status.HTTP_201_CREATED
         )
+        print(f"принт ответа - {response.data['title']}")
 
         self.assertEquals(
             response.data['title'],
             data['title']
         )
-

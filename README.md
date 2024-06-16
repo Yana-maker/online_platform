@@ -77,7 +77,7 @@ CRUD для модели поставщика (запретить обновле
 5. Настроить права доступа к API так, чтобы только активные сотрудники имели доступ к API.
 
 
-### Настройка
+### **Настройка**
 
 1. установите необходимые переменные из .env-sample
 2. Установите необходимые зависимости pip -r requirements.txt
@@ -96,7 +96,7 @@ python manage.py loaddata online_platform.json
 пользователям, кроме UserCreateApiView
 пример:
 ![img.png](img.png)
-9. для запуска теста: python manage.py test
+9. для запуска теста: coverage run manage.py test 
 10. посмотреть покрытие тестами: coverage report  
 
 # **Структура проекта**
